@@ -2,7 +2,7 @@ import React from "react";
 import { FaUserAlt } from "react-icons/fa"
 
 import { auth } from "../services/Firebase"
-import { funcSignOut } from "../utilities/OperLogin"
+import { funcSignOut } from "../utilities/OperAuth"
 
 const HeaderLogin = () => {
 

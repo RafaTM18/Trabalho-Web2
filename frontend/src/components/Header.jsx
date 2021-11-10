@@ -1,9 +1,7 @@
 import React, {useState} from "react";
 import { Modal, Tabs, Tab } from "react-bootstrap";
 
-import { updateProfile } from "@firebase/auth";
-import { auth } from "../services/Firebase";
-import { funcCreateAuthMailPassword, funcSignAuthMailPassword } from "../utilities/OperLogin";
+import { funcCreateAuthMailPassword, funcSignAuthMailPassword } from "../utilities/OperAuth";
 
 const Header = () => {
     const [modal, setModal] = useState(false)
@@ -23,15 +21,9 @@ const Header = () => {
 
     const cadastro = (e) => {
         e.preventDefault()
-
-        funcCreateAuthMailPassword(input.email, input.senha)
+        funcCreateAuthMailPassword(input.user, input.email, input.senha)
             .then(() => {
-                const user = auth.currentUser
-                updateProfile(user, {
-                    displayName : input.user
-                }).then(() => {
-                    alert('Usuário cadastro com sucesso!')
-                })
+                alert('Usuário cadastro com sucesso!')
             }).catch((error) => alert(`Houve um erro: ${error.message}`))
             .finally(showModal)
     }

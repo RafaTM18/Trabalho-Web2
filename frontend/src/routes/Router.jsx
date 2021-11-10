@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Switch, Route, Redirect } from 'react-router'
 
 import Inicio from './Inicio'
+import InfoLivro from './InfoLivro'
 
 class Router extends Component{
 
@@ -9,7 +10,7 @@ class Router extends Component{
         return (
             <Switch>
                 <Route exact path="/" component={Inicio} />
-                {/* <Route exact path="/livro" component={Livros} />  */}
+                <Route path="/livro" component={InfoLivro} /> 
                 <Redirect from="*" to="/" />
             </Switch>
         )
