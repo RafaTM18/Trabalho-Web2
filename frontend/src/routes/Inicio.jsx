@@ -1,26 +1,32 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useState, useEffect} from "react";
+
+import { auth } from "../services/Firebase";
 
 import Header from "../components/Header";
 import HeaderLogin from "../components/HeaderLogin";
 import Footer from "../components/Footer";
 
 const Inicio = () => {
-    const [usuAuth, setUsuAuth] = useState(false)
+    const [user, setUser] = useState(null);
 
-    function handleClick(e){
-        e.preventDefault()
-        setUsuAuth(!usuAuth)
-    }
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            setUser(user);
+        })
+    }, [])
 
-    function renderHeader(){
-        return usuAuth ? <HeaderLogin /> : <Header />
+
+    const renderHeader = () => {
+        return user ? <HeaderLogin /> : <Header />
     }
 
     return (
         <Fragment>
             {renderHeader()}
-            <button type="button" onClick={(e) => handleClick(e)}>Clica em mim</button>
-            <Footer></Footer>
+            <main>
+                <h1>Hello World!</h1>
+            </main>
+            <Footer />
         </Fragment>
     )
 
