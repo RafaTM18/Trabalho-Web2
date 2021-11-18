@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Switch, Route, Redirect } from 'react-router'
 
 import Inicio from './Inicio'
-import InfoLivro from './InfoLivro'
+import InfoLivro from './InfoLivroClass'
 
 class Router extends Component{
 

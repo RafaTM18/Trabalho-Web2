@@ -1,12 +1,9 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider, signOut } from "@firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "@firebase/auth";
 
 import { auth } from "../services/Firebase";
 
-async function funcCreateAuthMailPassword(username, email, password) {
-    const userCred = await createUserWithEmailAndPassword(auth, email, password)
-    await updateProfile(userCred.user, {
-        displayName: username
-    });
+async function funcCreateAuthMailPassword(email, password) {
+    await createUserWithEmailAndPassword(auth, email, password)
 }
 
 async function funcSignAuthMailPassword(email, password) {

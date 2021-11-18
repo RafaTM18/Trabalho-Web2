@@ -1,10 +1,15 @@
 import React, {useState} from "react";
+import { useHistory } from "react-router";
 import { Modal, Tabs, Tab } from "react-bootstrap";
+import { updateProfile } from "@firebase/auth";
 
+import { auth } from "../services/Firebase";
 import { funcCreateAuthMailPassword, funcSignAuthMailPassword } from "../utilities/OperAuth";
 
 const Header = () => {
+    const url = window.location.pathname.substring(window.location.pathname.indexOf('/') + 1)
     const [modal, setModal] = useState(false)
+    const history = useHistory()
     const [input, setInput ] = useState({
         email: '',
         senha: '',
@@ -21,9 +26,15 @@ const Header = () => {
 
     const cadastro = (e) => {
         e.preventDefault()
-        funcCreateAuthMailPassword(input.user, input.email, input.senha)
+        funcCreateAuthMailPassword(input.email, input.senha)
             .then(() => {
-                alert('Usuário cadastro com sucesso!')
+                const user = auth.currentUser
+                updateProfile(user, {
+                    displayName : input.user
+                }).then(() => {
+                    alert('Usuário cadastro com sucesso!')
+                    history.push(`/${url}`)
+                })
             }).catch((error) => alert(`Houve um erro: ${error.message}`))
             .finally(showModal)
     }
@@ -33,7 +44,7 @@ const Header = () => {
 
         funcSignAuthMailPassword(input.email, input.senha)
             .then(() => {
-                alert('Usuário logado com sucesso')
+                alert('Usuário logado com sucesso!')
             })
             .catch((error) => alert(`Houve um erro: ${error.message}`))
             .finally(showModal)
@@ -41,7 +52,7 @@ const Header = () => {
 
     return (
         <header className="bg-dark d-flex justify-content-between align-items-baseline p-3">
-            <h1 className="text-white m-0">Repositório do Conhecimento</h1>
+            <a href="/" className="h1 text-white m-0 text-decoration-none">Repositório do Conhecimento</a>
             <button onClick={showModal} className="btn btn-success col-2" type="button">Cadastrar</button>
 
             <Modal show={modal} onHide={showModal}>

@@ -17,9 +17,13 @@ const Inicio = () => {
         const promiseLivroData = getsLivro()
 
         auth.onAuthStateChanged(user => {
-            setUser(user);
-            if(user)
+            setUser(user)
+            if(user){
+                while(user.displayName === '')
                 user.getIdToken(true)
+                setUser(user)
+            }
+            
         })
 
         promiseLivroData
@@ -47,8 +51,8 @@ const Inicio = () => {
         <Fragment>
             {renderHeader()}
             <main>
-                <h1>Hello World!</h1>
                 <div className="container">
+                    <h2>Livros em destaques:</h2>
                     {livros ? renderListaLivros() : loading}
                 </div>
             </main>

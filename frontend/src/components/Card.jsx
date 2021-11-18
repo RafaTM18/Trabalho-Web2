@@ -9,10 +9,10 @@ class Card extends Component{
         return (
             <div className="card mb-3">
                 <div className="row g-0">
-                    <div className="col-md-4">
+                    <div className="col-sm-6">
                         <img src={this.props.urlCapa} className="img-fluid rounded-start" alt={"Capa do livro: " + this.props.titulo} />
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-sm-6">
                         <div className="card-body">
                             <h5 className="card-title">{this.props.titulo}</h5>
                             <p className="card-text">{this.props.autor}</p>
