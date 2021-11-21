@@ -1,36 +1,6 @@
 import { db } from "../services/Firebase";
 import { push, ref, update, remove, onValue } from "@firebase/database";
 
-const getsLivro = async () => {
-    const dictLivros = {}
-    const livros = ref(db, '/livros')
-    onValue(livros, (snapshot) => {
-        snapshot.forEach(
-            (dado) => {
-                dictLivros[dado.key] = dado.val()
-            }
-        )
-    })
-
-    return dictLivros
-}
-
-const getLivro = async (id) => {
-    let livro = undefined
-    const livros = ref(db, 'livros/')
-    onValue(livros, (snapshot) => {
-        snapshot.forEach(
-            (dado) => {
-                if(dado.key === id){
-                    livro = dado.val()
-                }
-            }
-        )
-    })
-
-    return livro
-}
-
 const addLivro = (dados) => {
     if(dados.includes("")){
         alert('Alguns campos inseridos são inválidos')
@@ -108,8 +78,6 @@ const delLivro = (id) => {
 }
 
 export {
-    getsLivro,
-    getLivro,
     addLivro,
     updLivro,
     delLivro

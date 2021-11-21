@@ -1,64 +1,76 @@
-import React, {Fragment, useState, useEffect} from "react";
+import { Component, Fragment } from "react";
+import { ref, onValue } from "@firebase/database";
 
-import { auth } from "../services/Firebase";
-import { getsLivro } from "../utilities/OperDB";
+import { db, auth } from "../services/Firebase";
 
 import Header from "../components/Header";
 import HeaderLogin from "../components/HeaderLogin";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
+import ListaCards from "../components/ListaCards";
 
-const Inicio = () => {
-    const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState(null)
-    const [livros, setLivros] = useState(null)
+const initialState = {
+    user: null,
+    dictLivros: {},
+    listCards: [],
+    loading: (<div>Carregando conteúdo...</div>)
+}
 
-    useEffect(() => {
-        const promiseLivroData = getsLivro()
+class Inicio extends Component{
 
-        auth.onAuthStateChanged(user => {
-            setUser(user)
-            if(user){
-                while(user.displayName === '')
-                user.getIdToken(true)
-                setUser(user)
-            }
-            
+    constructor(props){
+        super(props)
+        this.atualizaLivros = this.atualizaLivros.bind(this)
+        this.renderHeader = this.renderHeader.bind(this)
+        this.state = {...initialState}
+    }
+
+    componentDidMount(){
+        this.atualizaLivros()
+        
+        auth.onAuthStateChanged(usuario => {
+            this.setState({user: usuario})
         })
-
-        promiseLivroData
-            .then(result => setLivros(result))
-
-    }, [])
-
-
-    const renderHeader = () => {
-        return user ? <HeaderLogin /> : <Header />
+    }
+    
+    renderHeader(){
+        return this.state.user ? <HeaderLogin /> : <Header />
     }
 
-    const renderListaLivros = () => {
-        console.log(livros)
-        const listCards = []
+    atualizaLivros(){
+        const novoListCards = []
+        const novoDictLivros = {}
+        const livros = ref(db, 'livros/')
+        onValue(livros, (snapshot) => {
+            snapshot.forEach(
+                (dado) => {
+                    novoDictLivros[dado.key] = dado.val()
+                    novoListCards.push(<Card key={dado.key} link={dado.key} urlCapa={dado.val().urlCapa} titulo={dado.val().titulo} autor={dado.val().autor}/>)
 
-        for(const [key, values] of Object.entries(livros)){
-            listCards.push(<Card key={key} link={key} urlCapa={values.urlCapa} titulo={values.titulo} autor={values.autor}/>)
-        }
-
-        return listCards 
+                }
+            )
+            this.setState({dictLivros: novoDictLivros})
+            this.setState({listCards: novoListCards})
+        })
+    
     }
 
-    return (
-        <Fragment>
-            {renderHeader()}
-            <main>
-                <div className="container">
-                    <h2>Livros em destaques:</h2>
-                    {livros ? renderListaLivros() : loading}
-                </div>
-            </main>
-            <Footer />
-        </Fragment>
-    )
+
+
+    render(){
+        return (
+            <Fragment>
+                {this.renderHeader()}
+                <main>
+                    <div className="container">
+                        <h2>Livros em destaques:</h2>
+                        <ListaCards listCards={this.state.listCards} />
+                    </div>
+                </main>
+                <Footer />
+            </Fragment>
+        )
+    }
 
 }
 

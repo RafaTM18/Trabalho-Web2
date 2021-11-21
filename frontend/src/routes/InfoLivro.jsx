@@ -1,64 +1,66 @@
-import React, {Fragment, useState, useEffect} from "react";
+import { Component, Fragment } from "react"
+import { ref, onValue } from "@firebase/database";
 
-import { auth } from "../services/Firebase";
-import { getLivro } from "../utilities/OperDB";
+import { db, auth } from "../services/Firebase";
 
 import Header from "../components/Header";
 import HeaderLogin from "../components/HeaderLogin";
 import Footer from "../components/Footer";
 
-const InfoLivro = () => {
-    const [user, setUser] = useState(null)
-    const [livro, setLivro] = useState(null)
-    const loading = (<div>Carregando conteúdo...</div>)
+const initialState = {
+    user: null,
+    livro: {}
+}
 
+class InfoLivro extends Component{
 
-    useEffect(() => {
-        const promiseLivroData = getLivro(window.location.pathname.split('/')[2])
-        
-        auth.onAuthStateChanged(user => {
-            setUser(user);
-            if(user)
-                user.getIdToken(true)
+    constructor(props){
+        super(props)
+        this.getLivro = this.getLivro.bind(this)
+        this.state = {...initialState}
+    }
+
+    componentDidMount(){        
+        auth.onAuthStateChanged(usuario => {
+            this.setState({user: usuario})
         })
 
-        promiseLivroData
-            .then((result) => {
-                setLivro(result)
-                console.log(result)
-            })
-            
-    }, [])
-
-
-    const renderHeader = () => {
-        return user ? <HeaderLogin /> : <Header />
+        this.getLivro(window.location.pathname.split('/')[2])
     }
 
-    const renderLivro = () => {
-        return (
-            <p>
-                Título: {livro.titulo}
-                Autor: {livro.autor}
-            </p>
+    renderHeader(){
+        return this.state.user ? <HeaderLogin /> : <Header />
+    }
+
+    getLivro(id){
+        let novoLivro = {}
+        const livros = ref(db, 'livros/')
+        onValue(livros, (snapshot) => {
+            snapshot.forEach(
+                (dado) => {
+                    if(dado.key === id){
+                        novoLivro = dado.val()
+                    }
+                }
+            )
+            this.setState({livro: novoLivro})
+        })
+    }
+
+    render(){
+        return(
+            <Fragment>
+                {this.renderHeader()}
+                <main>
+                    <h1>Livro seila!</h1>
+                    <div className="container">
+                        <p>{JSON.stringify(this.state.livro)}</p>
+                    </div>
+                </main>
+                <Footer />
+            </Fragment>
         )
     }
-
-    return (
-        
-        <Fragment>
-            {renderHeader()}
-            <main>
-                <h1>Livro seila!</h1>
-                <div className="container">
-                    {livro ? renderLivro() : loading}
-                </div>
-            </main>
-            <Footer />
-        </Fragment>
-    )
-
-
 }
 
 export default InfoLivro
