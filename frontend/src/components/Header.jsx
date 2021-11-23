@@ -51,7 +51,7 @@ const Header = () => {
     }
 
     return (
-        <header className="bg-dark d-flex justify-content-between align-items-baseline p-3">
+        <header className="bg-dark d-flex justify-content-between align-items-baseline p-3 sticky-top">
             <a href="/" className="h1 text-white m-0 text-decoration-none">Repositório do Conhecimento</a>
             <button onClick={showModal} className="btn btn-success col-2" type="button">Cadastrar</button>
 

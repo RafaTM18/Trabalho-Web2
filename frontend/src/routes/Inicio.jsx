@@ -55,14 +55,12 @@ class Inicio extends Component{
     
     }
 
-
-
     render(){
         return (
             <Fragment>
                 {this.renderHeader()}
                 <main>
-                    <div className="container">
+                    <div className="container mt-3">
                         <h2>Livros em destaques:</h2>
                         <ListaCards listCards={this.state.listCards} />
                     </div>
