@@ -9,6 +9,8 @@ import Card from "../components/Card";
 import Footer from "../components/Footer";
 import ListaCards from "../components/ListaCards";
 
+import "../styles/estilos.css"
+
 const initialState = {
     user: null,
     dictLivros: {},
@@ -55,13 +57,16 @@ class Inicio extends Component{
     
     }
 
+
+
     render(){
         return (
             <Fragment>
                 {this.renderHeader()}
                 <main>
-                    <div className="container mt-3">
-                        <h2>Livros em destaques:</h2>
+                    <div className="container">
+                        <h2 className="text-center my-4">Livros em Destaques</h2>
+                        <hr class="mt-2 mb-3 "/>
                         <ListaCards listCards={this.state.listCards} />
                     </div>
                 </main>

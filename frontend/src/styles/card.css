@@ -1,3 +1,24 @@
 .card{
     width: 18rem
+    
 }
+
+.alinhamento-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:baseline;
+    height: 100%;
+}
+
+.cad>button{
+    justify-self:last baseline;
+}
+
+.card:hover{
+    cursor:default;
+    -moz-box-shadow:  0 0 5px #808080;
+    -webkit-box-shadow:  0 0 5px #808080;
+     box-shadow:  0 0 5px #808080;
+}
+
