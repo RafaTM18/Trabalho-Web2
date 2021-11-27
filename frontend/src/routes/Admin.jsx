@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 
 import { auth } from "../services/Firebase";
 
