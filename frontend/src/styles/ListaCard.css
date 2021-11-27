@@ -1,0 +1,11 @@
+.livros{
+    display: flex;
+    
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 100%;
+}
+
+.livros>div{
+    max-width: 300px;
+}

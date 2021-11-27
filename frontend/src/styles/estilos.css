@@ -1,0 +1,13 @@
+main{
+    
+    max-width: 80%;
+    margin:auto auto;
+    margin-bottom: 5px;
+}
+
+
+img{
+    margin: auto auto;
+    max-width: 650px;
+    max-height: 350px;
+}

@@ -1,10 +1,10 @@
 import { Component } from "react";
-
+import "../styles/ListaCard.css"
 class ListaCards extends Component{
 
     render(){
         return (
-            <div>
+            <div className='livros '>
                 {this.props.listCards}
             </div>
         )

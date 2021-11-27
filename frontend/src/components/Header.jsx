@@ -51,9 +51,9 @@ const Header = () => {
     }
 
     return (
-        <header className="bg-dark d-flex justify-content-between align-items-baseline p-3 sticky-top">
+        <header className="bg-dark d-flex justify-content-between align-items-baseline p-3">
             <a href="/" className="h1 text-white m-0 text-decoration-none">Repositório do Conhecimento</a>
-            <button onClick={showModal} className="btn btn-success col-2" type="button">Cadastrar</button>
+            <button onClick={showModal} className="btn btn-success col-2" type="button">Login</button>
 
             <Modal show={modal} onHide={showModal}>
                 <Modal.Header closeButton>
@@ -62,7 +62,7 @@ const Header = () => {
 
                 <Tabs defaultActiveKey="SignIn" className="mb-3">
                     <Tab eventKey="SignIn" title="Cadastro">        
-                        <Modal.Body>
+                        <Modal.Body  className="d-flex align-items-center justify-content-center ">
                             <form id="cadastro" className="card m-3 p-3" onSubmit={cadastro}>
                                 <div className="mb-">
                                     <label htmlFor="user" className="form-floating text-bold">Nome de usuário:</label>
@@ -85,8 +85,8 @@ const Header = () => {
                     </Tab>
 
                     <Tab eventKey="Login" title="Entrar">
-                        <Modal.Body>
-                            <form id="login" className="card m-3 p-3" onSubmit={login}>
+                        <Modal.Body className="d-flex align-items-center justify-content-center ">
+                            <form id="login" className="card m-3 p-3 " onSubmit={login}>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-floating">E-mail:</label>
                                     <input type="email" name="email" className="form-control" onChange={handleChange} required autoFocus/>
