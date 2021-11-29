@@ -1,13 +1,14 @@
 import { Component, Fragment } from "react"
-import { Link } from "react-router-dom"
 import { ref, onValue } from "@firebase/database";
 
 import { db, auth } from "../services/Firebase";
-import { BrowserRouter as Router } from "react-router-dom";
+
 import Header from "../components/Header";
 import HeaderLogin from "../components/HeaderLogin";
 import Footer from "../components/Footer";
+
 import "../styles/estilos.css"
+
 const initialState = {
     user: null,
     livro: {}
@@ -66,8 +67,8 @@ class InfoLivro extends Component{
                     <hr class="mt-2 mb-3 "/>
                     <div className="container">
                         <h3>Detalhes </h3>
-                        <p> <b> Ano Publicação: </b> <i>{this.state.livro.anoPublicacao}</i></p>
-                        <p> <b> Quntidade de páginas: </b> <i>{this.state.livro.qtdPaginas}</i></p>
+                        <p> <b> Ano de Publicação: </b> <i>{this.state.livro.anoPublicacao}</i></p>
+                        <p> <b> Quantidade de páginas: </b> <i>{this.state.livro.qtdPaginas}</i></p>
                         <p> <b> Edição: </b> <i>{this.state.livro.edicao}</i></p>
                         <p> <b> ISBN: </b> <i>{this.state.livro.isbn}</i></p>
                         <h5> <b> Descrição: </b> </h5>
