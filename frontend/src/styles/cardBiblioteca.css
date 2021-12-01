@@ -1,0 +1,53 @@
+.card{
+    width: 18rem
+    
+}
+
+.alinhamento-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:baseline;
+    height: 100%;
+}
+
+.mapa{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.cad>button{
+    justify-self:last baseline;
+}
+
+.card:hover{
+    cursor:default;
+    -moz-box-shadow:  0 0 5px #808080;
+    -webkit-box-shadow:  0 0 5px #808080;
+     box-shadow:  0 0 5px #808080;
+}
+
+iframe{
+    margin: auto auto;
+}
+
+.btn-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+
+.btn-info:hover{
+    
+    background-color: white;
+}
+
+.btn-info>a>button:hover{
+    background-color: tomato;
+    border:tomato
+}

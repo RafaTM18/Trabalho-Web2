@@ -53,8 +53,10 @@ const Header = () => {
     return (
         <header className="bg-dark d-flex justify-content-between align-items-baseline p-3 sticky-top">
             <a href="/" className="h1 text-white m-0 text-decoration-none">Repositório do Conhecimento</a>
-            <button onClick={showModal} className="btn btn-success col-2" type="button">Login</button>
-
+            <div className = "d-flex justify-content-between align-items-baseline col-2">
+                <a href="/bibliotecas/" className=" btn btn-success col-6 text-white border-0 text-decoration-none">Bibliotecas</a>
+                <button onClick={showModal} className="btn btn-success col-5" type="button">Login</button>
+            </div>
             <Modal show={modal} onHide={showModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Informe seus dados:</Modal.Title>

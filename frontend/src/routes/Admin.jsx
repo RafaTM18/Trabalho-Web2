@@ -28,7 +28,7 @@ const Admin = () => {
     }
 
     const renderBody = () => {
-        const adminEmails = ['admin@gmail.com','rafaeltmferreira18@gmail.com', 'rafael@gmail.com']
+        const adminEmails = ['admin@gmail.com','rafaeltmferreira18@gmail.com', 'rafael@gmail.com','lucase8350@gmail.com']
         if (user && adminEmails.includes(user.email)){
             clearTimeout(redirect)
             return (
