@@ -1,9 +1,8 @@
 import { Component, Fragment } from "react"
-import { Link } from "react-router-dom"
 import { ref, onValue } from "@firebase/database";
 
 import { db, auth } from "../services/Firebase";
-import { BrowserRouter as Router } from "react-router-dom";
+
 import Header from "../components/Header";
 import HeaderLogin from "../components/HeaderLogin";
 import Footer from "../components/Footer";
