@@ -7,7 +7,6 @@ import Biblioteca from './Biblioteca'
 import InfoBiblioteca from './InfoBiblioteca'
 import Admin from "./Admin";
 import AddLivro from "./admin-only/AddLivro";
-import EditLivro from "./admin-only/EditLivro";
 
 class Router extends Component{
 
@@ -20,7 +19,6 @@ class Router extends Component{
                 <Route path="/biblioteca/" component={InfoBiblioteca} /> 
                 <Route exact path="/admin" component={Admin} />
                     <Route path="/admin/add-livro" component={AddLivro} />
-                    <Route path="/admin/edit-livro" component={EditLivro} />
                 <Redirect from="*" to="/" />
             </Switch>
         )
