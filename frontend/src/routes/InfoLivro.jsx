@@ -140,7 +140,7 @@ class InfoLivro extends Component{
                     <div className="container card p-3 mt-3" style={{width: "50rem"}}>
                         <h3 className="mt-2 mb-4">Adicionar comentário:</h3>
                         <form onSubmit={this.addComment} className="d-flex align-items-center">
-                            <input className="col-9 p-2 me-2"type="text" placeholder="Escreva seu comentário" value={this.state.comment} onChange={(e) => this.setState({comment: e.target.value})}/>
+                            <input className="col-9 p-2 me-2 border-light rounded"type="text" placeholder="Escreva seu comentário" value={this.state.comment} onChange={(e) => this.setState({comment: e.target.value})}/>
                             <button className="col-3 btn btn-primary p-2" disabled={!this.state.comment || !auth.currentUser} type="submit" title="Enviar comentário">
                                 <FaCommentAlt />
                             </button>

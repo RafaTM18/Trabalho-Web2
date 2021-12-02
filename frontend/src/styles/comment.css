@@ -1,0 +1,17 @@
+.comment-card{
+    width: 65rem;
+    height: fit-content;
+    padding: 2px;
+    margin-bottom: 3px;
+    border: 0;
+}
+
+.comment{
+    width: 100%;
+    margin:1px;
+    margin-left: 13px;
+    padding: 2px;
+    padding-left: 4px;
+    
+    background-color: whitesmoke;
+}
