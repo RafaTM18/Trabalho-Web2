@@ -89,9 +89,9 @@ const AddLivro = () => {
         if (user && adminEmails.includes(user.email)){
             clearTimeout(redirect)
             return (
-            <main className="container mt-3">
+            <main className="container-xl mt-3">
                 <h2>Adicionar novo livro</h2>
-                <form onSubmit={addLivro} className="card mt-3 p-3">
+                <form onSubmit={addLivro} className=" mt-3 p-3">
                     <div className="mb-3">
                         <label htmlFor="titulo" className="form-label">Título: </label>
                         <input value={title} type="text" name="titulo" id="titulo" className="form-control" onChange={(e) => setTitle(e.target.value)}/>

@@ -66,7 +66,7 @@ class Inicio extends Component{
                 <main>
                     <div className="container">
                         <h2 className="text-center my-4">Livros em Destaques</h2>
-                        <hr class="mt-2 mb-3 "/>
+                        <hr className="mt-2 mb-3 "/>
                         <ListaCards listCards={this.state.listCards} />
                     </div>
                 </main>
