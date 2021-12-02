@@ -11,7 +11,7 @@ class Card extends Component{
                 <div className="row g-0">
                     <div className="col-sm-6">
                         
-                            <img src={this.props.urlCapa} className="img-fluid rounded-start" alt={"Capa do livro: " + this.props.titulo} />
+                            <img src={this.props.urlFoto} className="img-fluid rounded-start" alt={"Capa do livro: " + this.props.titulo} />
                         
                     </div>
                     <div className="col-sm-6">

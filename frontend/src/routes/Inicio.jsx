@@ -47,7 +47,7 @@ class Inicio extends Component{
             snapshot.forEach(
                 (dado) => {
                     novoDictLivros[dado.key] = dado.val()
-                    novoListCards.push(<Card key={dado.key} link={dado.key} urlCapa={dado.val().urlCapa} titulo={dado.val().titulo} autor={dado.val().autor}/>)
+                    novoListCards.push(<Card key={dado.key} link={dado.key} urlFoto={dado.val().urlFoto} titulo={dado.val().titulo} autor={dado.val().autor}/>)
 
                 }
             )

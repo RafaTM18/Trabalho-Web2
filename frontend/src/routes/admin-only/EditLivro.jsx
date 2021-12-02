@@ -28,12 +28,13 @@ const EditLivro = () => {
     }
 
     const renderBody = () => {
-        const adminEmails = ['admin@gmail.com','rafaeltmferreira18@gmail.com', 'rafael@gmail.com']
+        const adminEmails = ['admin@gmail.com']
         if (user && adminEmails.includes(user.email)){
             clearTimeout(redirect)
             return (
             <main className="container mt-3">
                 <h2>Editar livros</h2>
+                
             </main>
             )
         } else {

@@ -100,10 +100,10 @@ class InfoLivro extends Component{
                     <h1 className="text-center my-3">{this.state.livro.titulo}</h1>
                     <h5 className="text-center text-grey"><i className="text-center wt-100">{this.state.livro.autor}</i></h5>
                     <div className="d-flex align-items-center">
-                        <img src= {"../" + this.state.livro.urlCapa} className="img-fluid rounded-start"  alt={"Capa do livro: " + this.props.titulo}/>
+                        <img src= {this.state.livro.urlFoto} className="img-fluid rounded-start"  alt={"Capa do livro: " + this.props.titulo}/>
                     </div>  
                     <div className="d-flex align-items-center justify-content-center my-3">                   
-                        <a href={"../" + this.state.livro.urlArquivo} >
+                        <a href={this.state.livro.urlPdf} >
                                 <button className="btn btn-primary" type="button">Ler Online</button>
                         </a>
                     </div>   
@@ -111,10 +111,10 @@ class InfoLivro extends Component{
                     <div className="container">
                         <h3>Detalhes</h3>
                         <p>
-                            <b>Ano Publicação: </b> <i>{this.state.livro.anoPublicacao}</i>
+                            <b>Ano de Publicação: </b> <i>{this.state.livro.anoPublicacao}</i>
                         </p>
                         <p>
-                            <b>Quntidade de páginas: </b> <i>{this.state.livro.qtdPaginas}</i>
+                            <b>Quantidade de páginas: </b> <i>{this.state.livro.qtdPaginas}</i>
                         </p>
                         <p>
                             <b>Edição: </b> <i>{this.state.livro.edicao}</i>

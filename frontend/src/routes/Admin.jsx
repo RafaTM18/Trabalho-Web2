@@ -28,7 +28,7 @@ const Admin = () => {
     }
 
     const renderBody = () => {
-        const adminEmails = ['admin@gmail.com','rafaeltmferreira18@gmail.com', 'rafael@gmail.com','lucase8350@gmail.com']
+        const adminEmails = ['admin@gmail.com']
         if (user && adminEmails.includes(user.email)){
             clearTimeout(redirect)
             return (
@@ -37,8 +37,6 @@ const Admin = () => {
                 <div className="card p-3 m-3" style={{width:"80vw"}}>
                     <button onClick={() => {history.push('/admin/add-livro')}} className="btn btn-primary col-12 mb-3" type="button">Adicionar um novo livro</button>
                     <button onClick={() => {history.push('/admin/edit-livro')}} className="btn btn-primary col-12 mb-3" type="button">Editar ou remover um livro</button>
-                    <button onClick={() => {history.push('/admin/add-biblio')}} className="btn btn-primary col-12 mb-3" type="button">Adicionar uma nova biblioteca</button>
-                    <button onClick={() => {history.push('/admin/edit-biblio')}} className="btn btn-primary col-12 mb-3" type="button">Editar ou remover uma biblioteca</button>
                 </div>
             </main>
             )

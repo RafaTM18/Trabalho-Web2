@@ -64,9 +64,9 @@ const Header = () => {
 
                 <Tabs defaultActiveKey="SignIn" className="mb-3">
                     <Tab eventKey="SignIn" title="Cadastro">        
-                        <Modal.Body  className="d-flex align-items-center justify-content-center ">
+                        <Modal.Body  className="d-flex align-items-center justify-content-center">
                             <form id="cadastro" className="card m-3 p-3" onSubmit={cadastro}>
-                                <div className="mb-">
+                                <div className="mb-3">
                                     <label htmlFor="user" className="form-floating text-bold">Nome de usuário:</label>
                                     <input type="text" name="user" className="form-control" onChange={handleChange} required autoFocus/>
                                 </div>

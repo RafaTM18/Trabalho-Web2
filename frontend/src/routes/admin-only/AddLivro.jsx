@@ -1,8 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { useHistory } from "react-router";
-import { push, ref } from "@firebase/database";
 
-import { auth, db } from "../../services/Firebase";
+import { push, ref } from "@firebase/database";
+import { getDownloadURL, ref as sRef, uploadBytes } from "@firebase/storage";
+
+import { auth, db, storage } from "../../services/Firebase";
 
 import Header from "../../components/Header";
 import HeaderLogin from "../../components/HeaderLogin";
@@ -20,8 +22,6 @@ const AddLivro = () => {
     const [ISBN, setISBN] = useState('')
     const [qtdPag, setQtdPag] = useState('')
     const [title, setTitle] = useState('')
-    const [urlArq, setUrlArq] = useState('')
-    const [urlCap, setUrlCap] = useState('')
 
     useEffect(() => {
         setRedirect(setTimeout(() => {
@@ -44,34 +44,63 @@ const AddLivro = () => {
         setISBN('')
         setQtdPag('')
         setTitle('')
-        setUrlArq('')
         fileFoto.value = ''
-        setUrlCap('')
         filePDF.value = ''
     }
 
-    const addLivro = (e) => {
-        e.preventDefault()
 
-        push(ref(db, 'livros/'), {
-            anoPublicacao: anoPub,
-            autor: author,
-            descricao: desc,
-            edicao: edit,
-            isbn: ISBN,
-            qtdDownloads: 0,
-            qtdPaginas: qtdPag,
-            titulo: title,
-            urlArquivo: urlArq,
-            urlCapa: urlCap,
-        })
-            .then(resp => {
-                alert('Livro adicionado com sucesso!')
-                cleanInfo()
-            })
-            .catch(erro => {
-                alert('Houve um erro ao adicionar um novo livro. Mensagem de erro:', erro)
-            })
+
+    const addLivro = (e) => {
+        e.preventDefault()  
+        const fileFoto = document.getElementById('fotCapa')
+        const filePDF = document.getElementById('arqPDF')
+              
+        if(fileFoto.value && filePDF.value){
+
+            const imgFile = fileFoto.files[0]
+            const imgMetadata = { contentType: imgFile.type }
+            const imgStorage = sRef(storage, `images/${imgFile.name}`)
+
+            const pdfFile = filePDF.files[0]
+            const pdfMetadata = { contentType: pdfFile.type }
+            const pdfStorage = sRef(storage, `pdf/${pdfFile.name}`)
+
+            Promise.all([uploadBytes(imgStorage, imgFile, imgMetadata), uploadBytes(pdfStorage, pdfFile, pdfMetadata)])
+                .then(() => {
+                    Promise.all([getDownloadURL(imgStorage), getDownloadURL(pdfStorage)])
+                        .then((resps) => {
+                            push(ref(db, 'livros/'), {
+                                anoPublicacao: anoPub,
+                                autor: author,
+                                descricao: desc,
+                                edicao: edit,
+                                isbn: ISBN,
+                                qtdDownloads: 0,
+                                qtdPaginas: qtdPag,
+                                titulo: title,
+                                urlFoto: resps[0],
+                                urlPdf: resps[1]
+                            })
+                                .then(resp => {
+                                    alert('Livro adicionado com sucesso!')
+                                    cleanInfo()
+                                })
+                                .catch(erro => {
+                                    alert('Houve um erro ao adicionar um novo livro. Mensagem de erro:', erro)
+                                })
+                        })
+                })
+                .catch(erro => {
+                    alert('Houve um erro ao fazer o upload dos arquivos. Mensagem de erro:', erro)
+                })
+
+
+                
+        } else {
+            alert('Está faltando um arquivo!')
+        }
+
+        
     }
 
     const renderHeader = () => {
@@ -79,13 +108,11 @@ const AddLivro = () => {
     }
 
     const buttonDis = () => {
-        const fileFoto = document.getElementById('fotCapa')
-        const filePDF = document.getElementById('arqPDF')
-        return (!anoPub || !author || !desc || !edit || !ISBN || !qtdPag || !title || !fileFoto.value || !filePDF.value)
+        return (!anoPub || !author || !desc || !edit || !ISBN || !qtdPag || !title)
     }
 
     const renderBody = () => {
-        const adminEmails = ['admin@gmail.com','rafaeltmferreira18@gmail.com', 'rafael@gmail.com']
+        const adminEmails = ['admin@gmail.com']
         if (user && adminEmails.includes(user.email)){
             clearTimeout(redirect)
             return (
@@ -122,11 +149,11 @@ const AddLivro = () => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="fotCapa" className="form-label">Foto da Capa:</label>
-                        <input type="file" name="fotCapa" id="fotCapa" className="form-control" />
+                        <input type="file" name="fotCapa" id="fotCapa" className="form-control" accept="image/*"/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="arqPDF" className="form-label">PDF do Livro:</label>
-                        <input type="file" name="arqPDF" id="arqPDF" className="form-control" />
+                        <input type="file" name="arqPDF" id="arqPDF" className="form-control" accept="application/pdf"/>
                     </div>
                     <button disabled={buttonDis()} type="submit" className="btn btn-primary">Adicionar</button>
                 </form>
